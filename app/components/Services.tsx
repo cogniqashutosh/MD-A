@@ -116,14 +116,7 @@ export default function Services() {
                     )}
                   </div>
                   <div className="min-w-0">
-                    {f.href ? (
-                      <a href={f.href} className="no-underline">
-                        <p className="font-black text-[#c8392b] leading-snug" style={{ fontSize: '1rem' }}>{f.text}</p>
-                        <p className="font-medium tracking-wide" style={{ fontSize: '0.75rem', color: '#9aabbf', marginTop: '2px' }}>{f.sub}</p>
-                      </a>
-                    ) : (
-                      <p className="font-semibold text-[#1e3048] leading-snug" style={{ fontSize: '0.88rem' }}>{f.text}</p>
-                    )}
+                    <p className="font-semibold text-[#1e3048] leading-snug" style={{ fontSize: '0.88rem' }}>{f.text}</p>
                   </div>
                 </div>
               ))}
