@@ -1,26 +1,243 @@
 @import "tailwindcss";
 
+/* ════════════════════════════════════════
+   BRAND TOKENS
+════════════════════════════════════════ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy:       #1a3a5c;
+  --navy-dark:  #0e253d;
+  --red:        #c8392b;
+  --red-hover:  #a62e22;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Premium Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.glass-dark {
+  background: rgba(14, 37, 61, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.premium-shadow {
+  box-shadow: 0 10px 40px -10px rgba(26,58,92,0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.premium-shadow:hover {
+  box-shadow: 0 20px 60px -15px rgba(26,58,92,0.25);
+}
+
+/* ════════════════════════════════════════
+   BASE RESET
+════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html  { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+body  {
+  background: #fff;
+  color: #222;
+  font-family: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a   { text-decoration: none; color: inherit; }
+
+/* ════════════════════════════════════════
+   CUSTOM COMPONENT CLASSES
+   Unlayered — reliably override Tailwind
+   base/component layers; non-conflicting
+   utility classes (w-full, justify-center
+   etc.) still apply on the same element.
+════════════════════════════════════════ */
+
+/* ── centered section container ── */
+.section-wrap {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 64px;
+  padding-right: 64px;
+}
+@media (max-width: 1024px) {
+  .section-wrap { padding-left: 40px; padding-right: 40px; }
+}
+@media (max-width: 768px) {
+  .section-wrap { padding-left: 24px; padding-right: 24px; }
+}
+
+/* ── nav pill ── */
+.mda-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  border: 1.5px solid rgba(255,255,255,0.55);
+  border-radius: 9999px;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.18s, border-color 0.18s;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mda-pill:hover,
+.mda-pill:focus-visible {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.85);
+  outline: none;
+}
+
+/* ── red CTA button (hero / large size) ── */
+.btn-red {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 48px;
+  background: #c8392b;
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.2;
+  box-shadow: 0 4px 18px rgba(200,57,43,0.35);
+  transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-red:hover {
+  background: #a62e22;
+  box-shadow: 0 8px 28px rgba(200,57,43,0.50);
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+/* ── smaller red button (navbar / section CTAs) ── */
+.btn-red-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  background: #c8392b;
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.2;
+  box-shadow: 0 4px 18px rgba(200,57,43,0.35);
+  transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-red-sm:hover {
+  background: #a62e22;
+  box-shadow: 0 8px 28px rgba(200,57,43,0.50);
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+/* ── white outline button (hero dark bg) ── */
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 48px;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.2;
+  transition: background 0.18s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.16);
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+/* ── form input ── */
+.input-base {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  color: #222;
+  background: #fff;
+  border: 1.5px solid #d4d4d4;
+  border-radius: 6px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.input-base:focus {
+  border-color: #1a3a5c;
+  box-shadow: 0 0 0 3px rgba(26,58,92,0.12);
+}
+.input-base::placeholder { color: #aaa; }
+
+/* ── dark-bg form input (used in Newsletter) ── */
+.input-dark {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 0.875rem;
+  color: #fff;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.input-dark:focus {
+  border-color: rgba(200,57,43,0.55);
+  box-shadow: 0 0 0 3px rgba(200,57,43,0.13);
+}
+.input-dark::placeholder { color: rgba(255,255,255,0.28); }
+
+/* ── mobile button size reduction ── */
+@media (max-width: 480px) {
+  .btn-red, .btn-outline-white {
+    padding: 14px 28px;
+    font-size: 0.88rem;
+  }
+  .btn-red-sm {
+    padding: 9px 18px;
+    font-size: 0.72rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── footer social icons ── */
+.footer-social-btn {
+  background: #c8392b;
+  border: 1px solid #c8392b;
+}
+.footer-social-btn:hover {
+  background: #a62e22;
+  border-color: #a62e22;
 }
